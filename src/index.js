@@ -5,30 +5,26 @@ import { createStore, applyMiddleware } from "redux";
 // Browser Router - interacts with the history library and decides what to do in response to the changes in the URL
 // Route determines what components to show based on the URL
 import { BrowserRouter, Route } from "react-router-dom";
-import App from "./components/app";
+// import App from "./components/app";
 import reducers from "./reducers";
+import PostsIndex from './components/posts_index'
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
-class Hello extends React.Component {
-  render() {
-    return <div>Hello!</div>;
-  }
-}
-class Goodbye extends React.Component {
-  render() {
-    return <div>Goodbye!</div>;
-  }
-}
 //Route must have a path (usually string) and a component
+//can hardcode or import a header/navbar if we wanted to
+//: in route === wildcard
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <div>
-        <Route path="/hello" component={Hello} />
-        <Route path="/goodbye" component={Goodbye} />
+        <Route path="/" component={PostsIndex} />
       </div>
     </BrowserRouter>
   </Provider>,
   document.querySelector(".container")
 );
+
+
+// <Route path="/posts/:id" component={PostsShow} />
+// <Route path="/posts/new" component={PostsNew} />
