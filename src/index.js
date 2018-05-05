@@ -5,11 +5,12 @@ import { createStore, applyMiddleware } from "redux";
 // Browser Router - interacts with the history library and decides what to do in response to the changes in the URL
 // Route determines what components to show based on the URL
 import { BrowserRouter, Route } from "react-router-dom";
+import promise from 'redux-promise'
 // import App from "./components/app";
 import reducers from "./reducers";
 import PostsIndex from './components/posts_index'
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 //Route must have a path (usually string) and a component
 //can hardcode or import a header/navbar if we wanted to
