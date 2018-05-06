@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
+import _ from 'lodash';
 
 
 class PostsIndex extends Component{
@@ -9,17 +10,35 @@ class PostsIndex extends Component{
         this.props.fetchPosts();
     }
 
+    renderPosts(){
+        return _.map(this.props.posts, post => {
+            return <li className="list-group-item" key="post.id">
+                {post.title}
+            </li>
+        })
+    }
+
     render(){
         return (
             <div>
-                PostsIndex
+                <h3>Posts</h3>
+                <ul className="list-group">
+                    {this.renderPosts()}
+                </ul>
             </div>
         );
     }
+}
+
+//whenever we want to consume something from application level state, we always define mapStateToProps
+function mapStateToProps(state){
+    return { posts: state.posts };
 }
 
 
 //connecting the action creator to the component
 //similar to mapDispatchToProps, but we can pass the action 
 // {fetchPosts:FetchPosts}
-export default connect(null, {fetchPosts})(PostsIndex);
+
+// also change first parameter from null to mapStateToProps
+export default connect(mapStateToProps, {fetchPosts})(PostsIndex);
