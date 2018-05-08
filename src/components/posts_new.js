@@ -15,13 +15,25 @@ class PostsNew extends Component {
       <div className="form-group">
         <label>{field.label}</label>
         <input className="form-control" type="text" {...field.input} />
+        {/* .meta.error is created by the validate function and redux-form */}
+        {field.meta.error}
       </div>
+      
     );
   }
 
+  onSubmit(values){
+    //this === component
+    console.log(values)
+  }
+
+  // redux-form handles the state and validation of the form, not posting the data to a server.  When we need to take data from this form we need to handle that.  onSubmit needs to use our code along with redux-form to do any submittal related business
+  //handleSubmit is from redux-form...does the validate.  If all good, the onSubmit cb is called. 
+  //.bind this bc we want to keep it in the context of the component, not the form
   render() {
+    const {handleSubmit} = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field label="Post Title" name="title" component={this.renderField} />
         <Field
           label="Categories"
@@ -33,6 +45,7 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <button className="btn btn-success" type="submit">Save Post</button>
       </form>
     );
   }
@@ -48,10 +61,10 @@ function validate(values){
     errors.title="Please enter a title at least 5 characters long."
   }
   if(!values.categories){
-    errors.categories="Please enter some categories."
+    errors.categories="Please enter at least one category."
   }
-  if(!values.content){
-    errors.content="Please enter some content for your post."
+  if(!values.content || values.content.length < 10){
+    errors.content="Please enter some content to your post."
   }
 
   //if errors is empty, the form is fine to submit.  Any properties means that it failed validation and redux-form assumes form is invalid
@@ -62,6 +75,7 @@ function validate(values){
 // ***reduxForm is a helper that allows redux-form communicate directly from the component to the reducer setup in reducers/index.js
 //can show multiple forms - Sign-In and Sign-Up
 //providing a unique string ensures that we can handle forms that appear in this component..keeping the form state separate
+//reduxForm wires a ton of different properties and methods to our props in PostsNew...like handleSubmit (above)
 export default reduxForm({
   validate: validate,
   form: "PostsNewForm"
