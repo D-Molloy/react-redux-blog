@@ -13,6 +13,8 @@ import reducers from "./reducers";
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
 
+
+
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 //Route must have a path (usually string) and a component

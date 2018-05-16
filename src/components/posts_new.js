@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //reduxForm is very similar to connect from react-redux
 //allows our component to communicate directly to the store
 import { Field, reduxForm } from "redux-form";
-
+import './posts_new.css'
 //component property takes in a function/component that will be used to display the Field component
 //Field Component only knows how to communicate with ReduxForm, not how to show it onscreen, thats why we specify in the component attr
 //we only provide a reference to the function (not invoked) bc the field will call that function when it needs to
@@ -21,7 +21,13 @@ class PostsNew extends Component {
           {...field.input} 
         />
         {/* .meta.error is created by the validate function and redux-form and added to the field object*/}
-        {field.meta.error}
+        {/* fields have three categories - pristine, touched(user has interacted with it), an invalid */}
+        {/* we only want to display the error after it has been touched */}
+        {/* change {field.meta.error} to a ternary operator */}
+        {/* trying to submit with invalid values in the field shows the error below all */}
+        <div id="form-error">
+        {field.meta.touched ? field.meta.error : ''}
+        </div>
       </div>
       
     );
