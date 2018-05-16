@@ -27,15 +27,18 @@ class PostsNew extends Component {
     );
   }
 
+  //values - named by convention
   onSubmit(values){
     //this === component
     console.log(values)
   }
 
-  // redux-form handles the state and validation of the form, not posting the data to a server.  When we need to take data from this form we need to handle that.  onSubmit needs to use our code along with redux-form to do any submittal related business
+  // redux-form handles the state and values/validation of the form, not posting the data to a server.  When we need to take data from this form we need to handle that.  onSubmit needs to use our code along with redux-form to do any submittal related business
   //handleSubmit is from redux-form...does the validate.  If all good, the onSubmit cb is called. 
-  //.bind this bc we want to keep it in the context of the component, not the form
+
+  //.bind(this) bc we want to keep it in the context of the component, not the form
   render() {
+    //
     const {handleSubmit} = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -85,7 +88,7 @@ function validate(values){
 // ***reduxForm is a helper that allows redux-form communicate directly from the component to the reducer setup in reducers/index.js
 //can show multiple forms - Sign-In and Sign-Up
 //providing a unique string ensures that we can handle forms that appear in this component..keeping the form state separate
-//reduxForm wires a ton of different properties and methods to our props in PostsNew...like handleSubmit (above)
+//reduxForm wires a ton of different properties and methods to our props in PostsNew...like handleSubmit (above) which is being passed to props via redux-form
 export default reduxForm({
   validate: validate,
   form: "PostsNewForm"
