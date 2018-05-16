@@ -13,9 +13,14 @@ class PostsNew extends Component {
   renderField(field) {
     return (
       <div className="form-group">
+      {/* field.label from the field component */}
         <label>{field.label}</label>
-        <input className="form-control" type="text" {...field.input} />
-        {/* .meta.error is created by the validate function and redux-form */}
+        <input 
+          className="form-control" 
+          type="text" 
+          {...field.input} 
+        />
+        {/* .meta.error is created by the validate function and redux-form and added to the field object*/}
         {field.meta.error}
       </div>
       
@@ -34,7 +39,12 @@ class PostsNew extends Component {
     const {handleSubmit} = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <Field label="Post Title" name="title" component={this.renderField} />
+        <Field 
+        label="Post Title" 
+        // title connects to the field object and to the validation below
+        name="title" 
+        component={this.renderField} 
+        />
         <Field
           label="Categories"
           name="categories"
