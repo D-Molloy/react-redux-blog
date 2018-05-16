@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 //reduxForm is very similar to connect from react-redux
 //allows our component to communicate directly to the store
 import { Field, reduxForm } from "redux-form";
+import { connect } from 'react-redux';
+import { createPost } from '../actions';
 
 
 //component property takes in a function/component that will be used to display the Field component
@@ -43,7 +45,9 @@ class PostsNew extends Component {
 
   //values - named by convention
   onSubmit(values){
-    //this === component
+    //.bind(this) === component not form
+    //values is an object that contains properties for title,categories, content
+    this.props.createPost(values);
     console.log(values)
   }
 
@@ -108,7 +112,13 @@ function validate(values){
 //can show multiple forms - Sign-In and Sign-Up
 //providing a unique string ensures that we can handle forms that appear in this component..keeping the form state separate
 //reduxForm wires a ton of different properties and methods to our props in PostsNew...like handleSubmit (above) which is being passed to props via redux-form
+//reduxForm (a helper from redux-Form) and connect(from redux) both use the same syntax == helper({options})(component)
+// CONNECT() TAKES TWO PARAMETERS
+//first - a function that describes what part of the redux store we want to use on this component
+//second - what actionCreators we want to use in the component to send data to the redux store
 export default reduxForm({
   validate: validate,
   form: "PostsNewForm"
-})(PostsNew);
+})(
+  connect(null, {createPost})(PostsNew)
+);
