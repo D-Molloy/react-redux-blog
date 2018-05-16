@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 //reduxForm is very similar to connect from react-redux
 //allows our component to communicate directly to the store
 import { Field, reduxForm } from "redux-form";
-import './posts_new.css'
+
+
 //component property takes in a function/component that will be used to display the Field component
 //Field Component only knows how to communicate with ReduxForm, not how to show it onscreen, thats why we specify in the component attr
 //we only provide a reference to the function (not invoked) bc the field will call that function when it needs to
@@ -70,7 +72,12 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <div className="btn-toolbar">
         <button className="btn btn-success" type="submit">Save Post</button>
+        <Link className="btn btn-danger" to="/">
+          Cancel
+        </Link>
+        </div>
       </form>
     );
   }

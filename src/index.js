@@ -13,6 +13,7 @@ import reducers from "./reducers";
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
 
+// import '../style/style.css';
 
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
