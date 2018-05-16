@@ -26,6 +26,7 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <Switch>
+          {/* ReactRouterDOM passes a bunch of props to the component being rendered.  Look for this.props.history in posts_new.js ->onSubmit */}
           <Route path="/posts/new" component={PostsNew} />
           <Route path="/" component={PostsIndex} />
         </Switch>

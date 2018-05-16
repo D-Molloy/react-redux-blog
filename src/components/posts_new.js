@@ -44,11 +44,16 @@ class PostsNew extends Component {
   }
 
   //values - named by convention
+  //.bind(this) === component not form
+  //values is an object that contains properties for title,categories, content
   onSubmit(values){
-    //.bind(this) === component not form
-    //values is an object that contains properties for title,categories, content
-    this.props.createPost(values);
-    console.log(values)
+    //to ensure we don't redirect prior to the post being complete, we add a callback to the action and run the push - need to update actions/index.js to expect the callback
+      this.props.createPost(values, ()=>{
+      //this.props.history is passed from src/index.js
+      // it PROGRAMMATICALLY redirects to the route indicated
+      //the parameter needs to match a route
+      this.props.history.push('/')
+    });
   }
 
   // redux-form handles the state and values/validation of the form, not posting the data to a server.  When we need to take data from this form we need to handle that.  onSubmit needs to use our code along with redux-form to do any submittal related business

@@ -15,9 +15,11 @@ export function fetchPosts(){
     }
 }
 
-export function createPost(values) {
+//axios returns a promise, so we can add a .then and call our callback (the redirect in posts_new onSubmit)
+export function createPost(values, callback) {
 
     const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
+    .then(()=> callback());
 
     return {
         type: CREATE_POST,
