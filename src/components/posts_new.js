@@ -11,8 +11,13 @@ class PostsNew extends Component {
   // {...field.input} is an object that contains event handlers and props (onChange/onBlur/onFocus).  We are spreading them into the input instead of listing them out separately e.g. onChange={field.input.onChange}
   // the labels we pass as props to the Field component will be attached to the field object
   renderField(field) {
+    // grabbing the meta property and destructuring touched and error into standalone variables
+    const { meta: {touched, error} } = field;
+    const className = `form-group ${touched && error ? 'has-danger' : ""}`
+
     return (
-      <div className="form-group">
+      //has-danger from redux form adds styling to the input (red border)
+      <div className={className}>
       {/* field.label from the field component */}
         <label>{field.label}</label>
         <input 
@@ -25,8 +30,9 @@ class PostsNew extends Component {
         {/* we only want to display the error after it has been touched */}
         {/* change {field.meta.error} to a ternary operator */}
         {/* trying to submit with invalid values in the field shows the error below all */}
-        <div id="form-error">
-        {field.meta.touched ? field.meta.error : ''}
+        {/* text-help from redux form adds styling to the input (red text) */}
+        <div className="text-help">
+        {touched ? error : ''}
         </div>
       </div>
       
