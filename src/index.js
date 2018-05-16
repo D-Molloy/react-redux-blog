@@ -12,6 +12,7 @@ import promise from 'redux-promise'
 import reducers from "./reducers";
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
+import PostsShow from './components/posts_show';
 
 // import '../style/style.css';
 
@@ -28,6 +29,9 @@ ReactDOM.render(
         <Switch>
           {/* ReactRouterDOM passes a bunch of props to the component being rendered.  Look for this.props.history in posts_new.js ->onSubmit */}
           <Route path="/posts/new" component={PostsNew} />
+          {/* :id - wildcard that is passed down as a prop to PostsShow*/}
+          {/*  needs to be the second rout otherwise /new would be read as the wildcard*/}
+          <Route path="/posts/:id" component={PostsShow} />
           <Route path="/" component={PostsIndex} />
         </Switch>
       </div>
