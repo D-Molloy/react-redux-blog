@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import fetchPost from '../actions';
 
 class PostsShow extends Component {
     
     componentDidMount(){
-        //grabbing the id included in the route that is passed to us by react-router
-        //match is top level property
-        //params - obj that contains all the wildcard tokens that exist inside the url
-        const { id } = this.props.match.params;
-        //fetchPost grabs the data, adds it to the state, and we get it back in props with mapStateToProps
-        this.props.fetchPost(id);
+        //currently fetching an individual post twice (which is okay) 1 - on post_index and 2-with fetchApp
+        //can check the data and only fetch if the post doesn't exist
+        if(!this.props.post){
+            //grabbing the id included in the route that is passed to us by react-router
+            //match is top level property
+            //params - obj that contains all the wildcard tokens that exist inside the url
+            const { id } = this.props.match.params;
+            //fetchPost grabs the data, adds it to the state, and we get it back in props with mapStateToProps
+            this.props.fetchPost(id);
+        }
     }
 
     // posts[this.props.match.params.id]//the post we want to show, but we don't want to pull in all the posts (wasteful)
@@ -23,6 +28,7 @@ class PostsShow extends Component {
 
         return (
             <div>
+                <Link to="/" className="btn btn-primary">Back to Index</Link>
                 <h3>{post.title}</h3>
                 <h6>Categories: {post.categories}</h6>
                 <p>{post.content}</p>
