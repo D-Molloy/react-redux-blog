@@ -16,7 +16,7 @@ export default function (state = {}, action) {
             // ES6 method below identical to ES5 version 
             // [action.payload.data.id]: action.payload.data === key interpolation
             // we are making a new key on the returned object of whatever action.payload.data.id is, and assigning it the value of the payload
-            return {...state, [action.payload.data.id]: action.payload.data }
+            return { ...state, [action.payload.data.id]: action.payload.data };
         case FETCH_POSTS:
             return _.mapKeys(action.payload.data, 'id');
         default:

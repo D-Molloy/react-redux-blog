@@ -14,8 +14,6 @@ import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
 import PostsShow from './components/posts_show';
 
-// import '../style/style.css';
-
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -40,6 +38,3 @@ ReactDOM.render(
   document.querySelector(".container")
 );
 
-
-// <Route path="/posts/:id" component={PostsShow} />
-// <Route path="/posts/new" component={PostsNew} />
