@@ -1,9 +1,14 @@
-import { FETCH_POSTS, FETCH_POST } from '../actions';
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from '../actions';
 import _ from 'lodash'
 
 
 export default function (state = {}, action) {
     switch (action.type) {
+        case DELETE_POST:
+            //payload for this case includes the id of the delete post
+            //we pull the action.payload.data.id off and omit it before returning the post
+            //_.omit - look at the state, and if the state already has the key == action.payload, omit it...return a NEW object that doesn't contain the post with the matching id
+            return _.omit(state, action.payload)
         case FETCH_POST:
             //ES5 method
             // // action.payload.data == response data

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import fetchPost from '../actions';
+import { fetchPost, deletePost } from '../actions';
+
 
 class PostsShow extends Component {
     
@@ -18,6 +19,13 @@ class PostsShow extends Component {
         }
     }
 
+    onDeleteClick(){
+        const { id } = this.props.match.params;
+        this.props.deletePost(id, ()=>{
+            this.props.history.push("/")
+        })
+    }
+
     // posts[this.props.match.params.id]//the post we want to show, but we don't want to pull in all the posts (wasteful)
     render () {
         const { post } = this.props;
@@ -29,6 +37,12 @@ class PostsShow extends Component {
         return (
             <div>
                 <Link to="/" className="btn btn-primary">Back to Index</Link>
+                <button
+                    className="btn btn-danger pull-xs-right"
+                    onClick={this.onDeleteClick.bind(this)}
+                >
+                    Delete Post
+                </button>
                 <h3>{post.title}</h3>
                 <h6>Categories: {post.categories}</h6>
                 <p>{post.content}</p>
@@ -52,4 +66,4 @@ function mapStateToProps({ posts }, ownProps) {
 // CONNECT() TAKES TWO PARAMETERS
 //first - a function that describes what part of the redux store we want to use on this component
 //second - what actionCreators we want to use in the component to send data to the redux store
-export default connect(mapStateToProps, { fetchPost })(PostsShow);
+export default connect(mapStateToProps, { fetchPost, deletePost })(PostsShow);
